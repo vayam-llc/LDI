@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        string="Sale Order Number Label"
+        id="action_report_delivery"
+        model="stock.picking"
+        report_type="qweb-pdf"
+        name="sale_mrp_customisation.report_label_sale_order_number"
+        file="sale_mrp_customisation.report_label_sale_order_number"
+        print_report_name="'Sale Order Number Label - %s - %s' % (object.partner_id.name or '', object.name)"
+    />
+
+    <template id="report_picking_inherit_sale_mrp" inherit_id="stock.report_picking">
+        <xpath expr="//t/div/table[1]/thead/tr/th[5]" position="attributes">
+          <attribute name="width">40%</attribute>
+        </xpath>
+        <xpath expr="//t/div/table[1]/thead/tr/th[4]" position="replace"/>
+        <xpath expr="//t/div/table[1]/tbody//tr/td[4]" position="replace"/>
+        <xpath expr="//t/div/table[1]/tbody//tr//img[@t-if='has_serial_number and (ml.lot_id or ml.lot_name)']/." position="attributes">
+              <attribute name="width">60%</attribute>
+        </xpath>
+    </template>
+</odoo>
